@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect x="4" y="4" width="92" height="92" rx="22" fill="#0f1115"/>
+
+  <!-- clapperboard top (angled clapper) -->
+  <g fill="#f1f1f1">
+    <path d="M22 44
+             L74 30
+             A5 5 0 0 1 80.5 33.5
+             L82.5 41
+             A5 5 0 0 1 79 47.5
+             L27 61.5
+             A5 5 0 0 1 20.5 58
+             L18.5 50.5
+             A5 5 0 0 1 22 44 Z"/>
+  </g>
+
+  <!-- diagonal stripes on the clapper -->
+  <g stroke="#0f1115" stroke-width="5">
+    <line x1="33" y1="38" x2="40" y2="55"/>
+    <line x1="45" y1="35" x2="52" y2="52"/>
+    <line x1="57" y1="32" x2="64" y2="49"/>
+    <line x1="69" y1="29" x2="76" y2="45"/>
+  </g>
+
+  <!-- board body -->
+  <rect x="20" y="58" width="60" height="30" rx="4" fill="#f1f1f1"/>
+
+  <!-- lines on board -->
+  <rect x="28" y="68" width="44" height="4" rx="2" fill="#0f1115"/>
+  <rect x="28" y="77" width="30" height="4" rx="2" fill="#0f1115"/>
+</svg>

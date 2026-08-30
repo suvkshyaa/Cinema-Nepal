@@ -1,0 +1,609 @@
+:root {
+  --bg: #0f1115;
+  --card-bg: #1a1d24;
+  --accent: #e63946;
+  --accent-2: #2a9d8f;
+  --text: #f1f1f1;
+  --text-dim: #a0a0a0;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+body {
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 2rem;
+}
+
+.status { text-align: center; color: var(--text-dim); }
+.status.error { color: var(--accent); }
+
+/* ---- Header ---- */
+.site-header {
+  background: var(--card-bg);
+  border-bottom: 1px solid #2a2d34;
+  padding: 1rem 2rem;
+}
+
+.site-header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.brand-logo { font-size: 1.6rem; }
+
+.tagline {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin: 0.15rem 0 0;
+}
+
+.view-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.tab {
+  background: var(--bg);
+  color: var(--text-dim);
+  border: 1px solid #333;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.tab.active { background: var(--accent); color: white; border-color: var(--accent); }
+.tab:focus-visible { outline: 2px solid var(--accent); }
+
+/* ---- Movie grid ---- */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.movie-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.movie-card:hover { transform: translateY(-4px); transition: transform 0.15s; }
+
+.movie-poster-wrap {
+  position: relative;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 220px;
+  background: #000;
+}
+.movie-poster { width: 100%; height: 220px; object-fit: cover; display: block; }
+.play-overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem; color: white;
+  background: rgba(0,0,0,0.25);
+}
+.no-trailer { padding: 2rem 1rem; text-align: center; color: var(--text-dim); }
+
+.worth-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.75);
+  color: var(--accent-2);
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  z-index: 1;
+}
+
+.movie-card h3 { margin: 0.25rem 0 0; }
+.movie-meta { color: var(--text-dim); font-size: 0.85rem; margin: 0; }
+
+/* ---- Poll ---- */
+.poll-box { margin-top: 0.5rem; }
+.poll-buttons { display: flex; gap: 0.5rem; }
+.poll-buttons button {
+  flex: 1; padding: 0.4rem; border: none; border-radius: 6px;
+  cursor: pointer; font-size: 0.8rem;
+}
+.btn-worth { background: var(--accent-2); color: white; }
+.btn-not-worth { background: #444; color: white; }
+
+.poll-results { margin-top: 0.4rem; font-size: 0.75rem; color: var(--text-dim); }
+.poll-bar { height: 6px; background: #333; border-radius: 4px; overflow: hidden; margin-bottom: 0.25rem; }
+.poll-bar-fill { height: 100%; background: var(--accent-2); }
+
+.link-btn {
+  background: none; border: none; color: var(--accent);
+  cursor: pointer; padding: 0; font-size: 0.85rem; text-align: left;
+}
+
+/* ---- Reviews ---- */
+.review-section { margin-top: 0.5rem; border-top: 1px solid #2a2d34; padding-top: 0.5rem; }
+.review-form { display: flex; flex-direction: column; gap: 0.4rem; }
+.review-form input, .review-form textarea {
+  background: #0f1115; border: 1px solid #333; color: var(--text);
+  border-radius: 6px; padding: 0.4rem; font-family: inherit;
+}
+.review-form button {
+  background: var(--accent); color: white; border: none;
+  padding: 0.4rem; border-radius: 6px; cursor: pointer;
+}
+.review-list { margin-top: 0.5rem; max-height: 150px; overflow-y: auto; }
+.review-item { padding: 0.4rem 0; border-bottom: 1px solid #2a2d34; font-size: 0.85rem; }
+.review-item p { margin: 0.15rem 0 0; color: #ddd; }
+.no-reviews { color: var(--text-dim); font-size: 0.8rem; }
+
+.genre-section { margin-bottom: 2rem; }
+.genre-title {
+  font-size: 1.2rem; color: var(--accent-2); margin-bottom: 0.75rem;
+  border-bottom: 1px solid #2a2d34; padding-bottom: 0.3rem;
+}
+
+/* ---- Footer ---- */
+.site-footer {
+  background: var(--card-bg);
+  border-top: 1px solid #2a2d34;
+  margin-top: 3rem;
+  padding: 2rem;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+.footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-col h4 {
+  color: var(--text);
+  font-size: 0.9rem;
+  margin: 0 0 0.5rem;
+}
+
+.footer-col a {
+  display: block;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 0.35rem;
+}
+.footer-col a:hover { color: var(--accent); }
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #2a2d34;
+  font-size: 0.75rem;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .app-main { padding: 1.25rem 1rem; }
+  .site-header { padding: 1rem; }
+  .footer-inner { flex-direction: column; }
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  .movie-poster, .movie-poster-wrap { height: 180px; min-height: 180px; }
+  .movie-poster-wrap iframe { height: 180px; }
+  .movie-card { padding: 0.75rem; }
+  .movie-card h3 { font-size: 0.95rem; }
+  .poll-buttons button { font-size: 0.72rem; padding: 0.35rem 0.25rem; }
+  .view-tabs { flex-wrap: wrap; }
+}
+
+@media (max-width: 420px) {
+  .app-header h1 { font-size: 1.35rem; }
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  .movie-poster, .movie-poster-wrap { height: 140px; min-height: 140px; }
+  .movie-poster-wrap iframe { height: 140px; }
+  .poll-buttons { flex-direction: column; }
+  .review-form textarea { font-size: 0.85rem; }
+}
+
+/* ---- Card poll preview (compact, on grid) ---- */
+.card-poll-preview { font-size: 0.75rem; color: var(--text-dim); }
+.card-poll-preview .poll-bar { margin-bottom: 0.25rem; }
+.movie-card { cursor: pointer; }
+
+/* ---- Movie detail page ---- */
+.movie-detail { max-width: 900px; margin: 0 auto; text-align: left; }
+.back-btn { margin-bottom: 1rem; font-size: 0.9rem; }
+
+.detail-hero {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.detail-poster {
+  width: 260px;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.detail-hero-info { flex: 1; min-width: 260px; }
+.detail-hero-info h1 {
+  color: var(--text);
+  margin: 0 0 0.25rem;
+  font-size: 2rem;
+}
+.detail-year { color: var(--text-dim); font-weight: 400; font-size: 1.2rem; }
+.detail-description { margin: 1rem 0; color: #ddd; line-height: 1.5; }
+.detail-trailer iframe { width: 100%; aspect-ratio: 16/9; border: none; border-radius: 8px; margin-top: 1rem; }
+
+/* ---- Poll & reviews get their own prominent sections ---- */
+.detail-poll, .detail-reviews {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+.detail-poll h2, .detail-reviews h2 {
+  margin: 0 0 1rem;
+  font-size: 1.3rem;
+  color: var(--accent-2);
+}
+
+.poll-buttons.large { max-width: 400px; gap: 1rem; }
+.poll-buttons.large button { padding: 0.9rem; font-size: 1rem; font-weight: 600; border-radius: 8px; }
+.poll-results.large { max-width: 400px; margin-top: 1rem; font-size: 0.9rem; }
+.poll-results.large .poll-bar { height: 10px; }
+
+.review-list.large { max-height: none; margin-top: 1.5rem; }
+.review-list.large .review-item { padding: 0.75rem 0; font-size: 0.95rem; }
+
+@media (max-width: 640px) {
+  .detail-hero { flex-direction: column; }
+  .detail-poster { width: 100%; height: 320px; }
+}
+
+.detail-meta-row {
+  display: flex;
+  gap: 1.25rem;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+  flex-wrap: wrap;
+}
+
+.detail-genre-tags {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+  flex-wrap: wrap;
+}
+.genre-tag {
+  background: var(--accent-bg, rgba(230, 57, 70, 0.15));
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+}
+
+.detail-cast {
+  margin: 0.75rem 0;
+  color: #ddd;
+  font-size: 0.9rem;
+}
+.detail-cast strong { color: var(--text); }
+
+.poll-buttons.large button:disabled { opacity: 0.55; cursor: not-allowed; }
+.poll-buttons.large button.selected { opacity: 1; outline: 2px solid var(--text); }
+.voted-note { margin-top: 0.5rem; color: var(--accent-2); font-size: 0.85rem; }
+.poll-bar-fill { transition: width 0.6s ease-out; }
+
+/* ---- Header auth status ---- */
+.auth-status {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.auth-username {
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* ---- Auth modal ---- */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1rem;
+}
+
+.auth-modal {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  text-align: left;
+}
+
+.auth-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.auth-close:hover { color: var(--text); }
+
+.auth-modal h2 { margin: 0 0 0.25rem; color: var(--text); }
+.auth-subtitle { color: var(--text-dim); font-size: 0.85rem; margin: 0 0 1.25rem; }
+
+.auth-form { display: flex; flex-direction: column; gap: 0.75rem; }
+.auth-form input {
+  background: var(--bg);
+  border: 1px solid #333;
+  color: var(--text);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+.auth-form button[type="submit"] {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+.auth-form button[type="submit"]:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.auth-error {
+  color: var(--accent);
+  font-size: 0.8rem;
+  margin: 0;
+}
+.auth-hint {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+}
+
+.auth-switch {
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* ---- Admin form ---- */
+.admin-form-wrap { max-width: 600px; margin: 0 auto; text-align: left; }
+.admin-form-wrap h1 { color: var(--text); margin-bottom: 0.25rem; }
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+.admin-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+.admin-form input,
+.admin-form textarea {
+  background: var(--bg);
+  border: 1px solid #333;
+  color: var(--text);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+.admin-form button[type="submit"] {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.admin-form button[type="submit"]:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.poster-preview {
+  width: 160px;
+  height: 236px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #333;
+  align-self: flex-start;
+}
+.admin-form input[type="file"] {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+/* ---- Poll ring (circular verdict badge) ---- */
+.poll-ring-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.poll-ring-text {
+  position: absolute;
+  font-weight: 700;
+  color: var(--text);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1;
+}
+.poll-ring-label {
+  position: absolute;
+  bottom: -1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Small ring on grid card poster corner */
+.card-poll-ring {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  background: rgba(15, 17, 21, 0.85);
+  border-radius: 50%;
+  padding: 3px;
+}
+
+/* Large ring on detail page */
+.detail-poll-ring-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+.detail-poll-ring-row .poll-ring-wrap { margin-bottom: 1.2rem; }
+.detail-poll-vote-count {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.detail-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.admin-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-secondary {
+  background: #333;
+  color: var(--text);
+  border: none;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.btn-secondary:hover { background: #444; }
+
+.btn-danger {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.btn-danger:hover { opacity: 0.9; }
+.btn-danger:disabled, .btn-secondary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.confirm-delete {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  background: var(--card-bg);
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+}
+
+.admin-form-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+.admin-form-actions .btn-secondary {
+  flex: 1;
+  padding: 0.8rem;
+}
+.admin-form button[type="submit"] { flex: 2; }
+.brand-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+.brand-link:hover { opacity: 0.85; }
