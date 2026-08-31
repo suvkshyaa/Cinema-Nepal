@@ -9,6 +9,7 @@ function AuthForm({ onSuccess, onClose }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
@@ -72,23 +73,38 @@ function AuthForm({ onSuccess, onClose }) {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            minLength={6}
-          />
-          {mode === 'signup' && (
+
+          <div className="password-field">
             <input
-              type="password"
-              placeholder="Confirm password"
-              value={passwordConfirm}
-              onChange={(e) => setPasswordConfirm(e.target.value)}
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
               minLength={6}
             />
+            <button
+              type="button"
+              className="password-toggle"
+              onClick={() => setShowPassword((v) => !v)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              tabIndex={-1}
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </button>
+          </div>
+
+          {mode === 'signup' && (
+            <div className="password-field">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Confirm password"
+                value={passwordConfirm}
+                onChange={(e) => setPasswordConfirm(e.target.value)}
+                required
+                minLength={6}
+              />
+            </div>
           )}
 
           {error && <p className="auth-error">{error}</p>}

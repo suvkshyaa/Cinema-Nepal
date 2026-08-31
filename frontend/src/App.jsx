@@ -28,6 +28,8 @@ function App() {
           poster: m.poster_url,
           year: m.release_year,
           trailerUrl: m.trailer_url,
+          worthCount: m.worth_count,
+          notWorthCount: m.not_worth_count,
         }));
         setMovies(mapped);
       })
@@ -119,6 +121,8 @@ function App() {
                 poster: updated.poster_url,
                 year: updated.release_year,
                 trailerUrl: updated.trailer_url,
+                worthCount: updated.worth_count,
+                notWorthCount: updated.not_worth_count,
               };
               setMovies((prev) => prev.map((m) => (m.id === mapped.id ? mapped : m)));
               setSelectedMovie(mapped);

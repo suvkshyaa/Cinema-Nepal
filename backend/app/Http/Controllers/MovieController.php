@@ -9,7 +9,10 @@ class MovieController extends Controller
 {
     public function index()
     {
-        return Movie::orderByDesc('release_year')->get();
+        return Movie::withCount([
+            'pollVotes as worth_count' => fn ($q) => $q->where('vote', 'worth'),
+            'pollVotes as not_worth_count' => fn ($q) => $q->where('vote', 'not_worth'),
+        ])->orderByDesc('release_year')->get();
     }
 
     public function show(Movie $movie)
