@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cinema-mysql
+  labels:
+    app: cinema-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cinema-mysql
+  template:
+    metadata:
+      labels:
+        app: cinema-mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_DATABASE
+              value: nepali_cinema_hub
+            - name: MYSQL_ROOT_PASSWORD
+              value: rootpassword
+            - name: MYSQL_USER
+              value: cinema_user
+            - name: MYSQL_PASSWORD
+              value: cinema_pass
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+          readinessProbe:
+            exec:
+              command: ["mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 10
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cinema-mysql
+spec:
+  selector:
+    app: cinema-mysql
+  ports:
+    - port: 3306
+      targetPort: 3306

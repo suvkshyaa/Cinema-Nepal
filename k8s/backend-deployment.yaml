@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cinema-backend
+  labels:
+    app: cinema-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cinema-backend
+  template:
+    metadata:
+      labels:
+        app: cinema-backend
+    spec:
+      containers:
+        - name: backend
+          image: cinema-nepal-backend:v2
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          env:
+            - name: APP_ENV
+              value: local
+            - name: APP_DEBUG
+              value: "true"
+            - name: APP_KEY
+              value: "base64:uLDDJgB2VZigDoL2s6CbDfD61F2sVOATtNkss2cfh0c="
+            - name: DB_CONNECTION
+              value: mysql
+            - name: DB_HOST
+              value: cinema-mysql
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_DATABASE
+              value: nepali_cinema_hub
+            - name: DB_USERNAME
+              value: cinema_user
+            - name: DB_PASSWORD
+              value: cinema_pass
+          volumeMounts:
+            - name: backend-storage
+              mountPath: /var/www/html/storage/app/public
+      volumes:
+        - name: backend-storage
+          persistentVolumeClaim:
+            claimName: backend-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cinema-backend
+spec:
+  type: NodePort
+  selector:
+    app: cinema-backend
+  ports:
+    - port: 8000
+      targetPort: 8000
+      nodePort: 30800

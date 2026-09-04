@@ -16,19 +16,20 @@ function MovieCard({ movie, onOpen }) {
         onMouseEnter={() => setShowTrailer(true)}
         onMouseLeave={() => setShowTrailer(false)}
       >
-        {movie.poster ? (
-          <img
-            src={movie.poster}
-            alt={movie.title}
-            className="movie-poster"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = 'https://placehold.co/300x445?text=No+Poster';
-            }}
-          />
-        ) : (
-          <div className="no-trailer">No poster available</div>
-        )}
+      {movie.poster ? (
+      <img
+        src={movie.poster}
+        alt={movie.title}
+        className="movie-poster"
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = 'https://placehold.co/300x445?text=No+Poster';
+        }}
+      />
+      ) : (
+      <div className="no-trailer">No poster available</div>
+    )}
+        
 
         <div className="card-poll-ring">
           <PollRing percent={worthPercent} totalVotes={totalVotes} size={44} />

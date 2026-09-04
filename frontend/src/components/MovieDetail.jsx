@@ -139,14 +139,14 @@ function MovieDetail({ movie, onBack, onRequireAuth, onMovieUpdated, onMovieDele
       {deleteError && <p className="auth-error">{deleteError}</p>}
 
       <div className="detail-hero">
-        {movie.poster && (
-          <img
-            src={movie.poster}
-            alt={movie.title}
-            className="detail-poster"
-            onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/300x445?text=No+Poster'; }}
-          />
-        )}
+      {movie.poster && (
+        <img
+          src={movie.poster}
+          alt={movie.title}
+          className="detail-poster"
+          onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/300x445?text=No+Poster'; }}
+        />
+      )}  
         <div className="detail-hero-info">
           <h1>{movie.title} <span className="detail-year">{movie.year}</span></h1>
 
