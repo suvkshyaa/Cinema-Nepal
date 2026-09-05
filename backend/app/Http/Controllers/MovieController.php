@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
@@ -20,51 +21,51 @@ class MovieController extends Controller
         return $movie;
     }
 
-public function store(Request $request)
-{
-    $validated = $request->validate([
-        'title' => 'required|string|max:150',
-        'genre' => 'required|string|max:100',
-        'release_year' => 'required|integer|min:1900|max:2100',
-        'poster' => 'required|image|mimes:jpg,jpeg,png,webp|max:4096',
-        'trailer_url' => 'required|url',
-        'description' => 'required|string|max:2000',
-    ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:150',
+            'genre' => 'required|string|max:100',
+            'release_year' => 'required|integer|min:1900|max:2100',
+            'poster' => 'required|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'trailer_url' => 'required|url',
+            'description' => 'required|string|max:2000',
+        ]);
 
-    $path = $request->file('poster')->store('posters', 'public');
+        $path = $request->file('poster')->store('posters', 's3');
 
-    $movie = Movie::create([
-        'title' => $validated['title'],
-        'genre' => $validated['genre'],
-        'release_year' => $validated['release_year'],
-        'poster_url' => url('storage/' . $path),
-        'trailer_url' => $validated['trailer_url'],
-        'description' => $validated['description'],
-    ]);
+        $movie = Movie::create([
+            'title' => $validated['title'],
+            'genre' => $validated['genre'],
+            'release_year' => $validated['release_year'],
+            'poster_url' => Storage::disk('s3')->url($path),
+            'trailer_url' => $validated['trailer_url'],
+            'description' => $validated['description'],
+        ]);
 
-    return response()->json($movie, 201);
-}
-
-public function update(Request $request, Movie $movie)
-{
-    $validated = $request->validate([
-        'title' => 'sometimes|string|max:150',
-        'genre' => 'sometimes|string|max:100',
-        'release_year' => 'sometimes|integer|min:1900|max:2100',
-        'poster' => 'sometimes|image|mimes:jpg,jpeg,png,webp|max:4096',
-        'trailer_url' => 'sometimes|url',
-        'description' => 'sometimes|string|max:2000',
-    ]);
-
-    if ($request->hasFile('poster')) {
-        $path = $request->file('poster')->store('posters', 'public');
-        $validated['poster_url'] = url('storage/' . $path);
+        return response()->json($movie, 201);
     }
 
-    $movie->update($validated);
+    public function update(Request $request, Movie $movie)
+    {
+        $validated = $request->validate([
+            'title' => 'sometimes|string|max:150',
+            'genre' => 'sometimes|string|max:100',
+            'release_year' => 'sometimes|integer|min:1900|max:2100',
+            'poster' => 'sometimes|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'trailer_url' => 'sometimes|url',
+            'description' => 'sometimes|string|max:2000',
+        ]);
 
-    return response()->json($movie);
-}
+        if ($request->hasFile('poster')) {
+            $path = $request->file('poster')->store('posters', 's3');
+            $validated['poster_url'] = Storage::disk('s3')->url($path);
+        }
+
+        $movie->update($validated);
+
+        return response()->json($movie);
+    }
 
     public function destroy(Movie $movie)
     {
