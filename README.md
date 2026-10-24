@@ -224,8 +224,8 @@ Cinema Nepal is deployed on AWS and working end to end. The infrastructure is be
 | Database (RDS MySQL) | Live |
 | Poster uploads (S3 with IAM task role) | Live |
 | Docker images (ECR) | Live |
-| Single load balancer with path routing | In progress |
-| HTTPS and custom domain | Planned |
+| Single load balancer with path routing | Live |
+| HTTPS and custom domain | Live |
 | Secrets Manager for the database password | Planned |
 | Search, filters and trailer embeds | Planned |
 | Automated builds and deployments | Planned |
