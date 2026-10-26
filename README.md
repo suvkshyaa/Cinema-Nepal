@@ -122,6 +122,8 @@ flowchart TB
 <p align="center">
   <img src="docs/assets/ui-homepage.jpeg" alt="Cinema Nepal Homepage" width="48%" />
   <img src="docs/assets/ui-movie-details.png" alt="Movie Details & Trailer Embed" width="48%" />
+  <img src="docs/assets/ui-genres-page.png" alt="Movie Details & Trailer Embed" width="48%" />
+
 </p>
 
 ### AWS Infrastructure & Monitoring
