@@ -115,6 +115,27 @@ flowchart TB
 - **EFS volume (optional)** is only needed if Laravel must keep files written to `storage/` across restarts. Uploads already go to S3.
 - **Security groups** enforce the boundaries: the load balancer accepts web traffic from the internet, the tasks accept traffic only from the load balancer, and RDS accepts MySQL traffic only from the backend.
 
+
+## 📸 Production Screenshots & Proof of Deployment
+
+### Web Application UI
+<p align="center">
+  <img src="docs/assets/ui-homepage.png" alt="Cinema Nepal Homepage" width="48%" />
+  <img src="docs/assets/ui-movie-details.png" alt="Movie Details & Trailer Embed" width="48%" />
+</p>
+
+### AWS Infrastructure & Monitoring
+<p align="center">
+  <img src="docs/assets/aws-ecs-services.png" alt="AWS ECS Cluster & Services" width="48%" />
+  <img src="docs/assets/aws-rds-mysql.png" alt="AWS RDS MySQL Database" width="48%" />
+</p>
+
+<p align="center">
+  <img src="docs/assets/aws-vpc-architecture.png" alt="AWS VPC Network Resource Map" width="48%" />
+  <img src="docs/assets/aws-cloudwatch-health.png" alt="AWS CloudWatch Metrics" width="48%" />
+</p>
+
+
 ### Why one load balancer with path routing
 
 The frontend and backend still deploy, scale, and health-check independently, but they share one load balancer. This costs less than running one per service, avoids exposing a separate backend port, and lets the whole site use one HTTPS certificate on one domain. It also avoids mixed-content errors, which happen when an HTTPS page calls an HTTP backend address.
