@@ -120,19 +120,19 @@ flowchart TB
 
 ### Web Application UI
 <p align="center">
-  <img src="docs/assets/ui-homepage.png" alt="Cinema Nepal Homepage" width="48%" />
+  <img src="docs/assets/ui-homepage.jpeg" alt="Cinema Nepal Homepage" width="48%" />
   <img src="docs/assets/ui-movie-details.png" alt="Movie Details & Trailer Embed" width="48%" />
 </p>
 
 ### AWS Infrastructure & Monitoring
 <p align="center">
-  <img src="docs/assets/aws-ecs-services.png" alt="AWS ECS Cluster & Services" width="48%" />
-  <img src="docs/assets/aws-rds-mysql.png" alt="AWS RDS MySQL Database" width="48%" />
+  <img src="docs/assets/aws-ecs-services.jpeg" alt="AWS ECS Cluster & Services" width="48%" />
+  <img src="docs/assets/aws-rds-mysql.jpeg" alt="AWS RDS MySQL Database" width="48%" />
 </p>
 
 <p align="center">
-  <img src="docs/assets/aws-vpc-architecture.png" alt="AWS VPC Network Resource Map" width="48%" />
-  <img src="docs/assets/aws-cloudwatch-health.png" alt="AWS CloudWatch Metrics" width="48%" />
+  <img src="docs/assets/aws-vpc-architecture.jpeg" alt="AWS VPC Network Resource Map" width="48%" />
+  <img src="docs/assets/aws-cloudwatch-health.jpeg" alt="AWS CloudWatch Metrics" width="48%" />
 </p>
 
 
